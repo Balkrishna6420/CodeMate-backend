@@ -1,0 +1,22 @@
+{
+  "name": "devtinderbackend",
+  "version": "1.0.0",
+  "description": "tinder for devs",
+  "keywords": [
+    "nodejs",
+    "javascript"
+  ],
+  "license": "ISC",
+  "author": "BalKrishna",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start":"nodemon src/app.js",
+    "dev":"nodemon src/app.js"
+    
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
