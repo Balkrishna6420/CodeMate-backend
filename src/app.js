@@ -1,32 +1,34 @@
 const express = require("express");
+const { connectDB } = require("./config/database");
 const app = express();
-const { adminAuth, userAuth } = require("./middlewares/auth");
+const User = require("./models/user");
 
-
-app.use("/", (err, req, res, next) => {
-  if (err) {
-    // Log your error
-    res.status(500).send("something went wrong");
-  }
-});
-
-app.get("/getUserData", (req, res) => {
+app.post("/signup", async (req, res) => {
+  // Creating a new instance of the User model
+  const user = new User({
+    firstName: "Rohit",
+    lastName: "Sharma",
+    emailId: "balkrishna@shana.com",
+    password: "shan@123",
+    age: 38,
+    gender: "Male",
+  });
   try {
-  //Logic of DB call and get user data
-  throw new Error("dvbzhjf");
-  res.send("User Data Sent");
-    } catch (err) {
-      res.status(500).send("Some Error contact support team");
-    }
-});
-
-app.use("/", (err, req, res, next) => {
-  if (err) {
-    // Log your error
-    res.status(500).send("something went wrong");
+    await user.save();
+    res.send("User Added successfully!");
+  } catch (err) {
+    res.status(400).send("Error saving the user:" + err.message);
   }
 });
 
-app.listen(7777, () => {
-  console.log("Server is successfully connected to port 7777");
-});
+connectDB()
+  .then(() => {
+    console.log("Database Connection is established!!");
+    app.listen(7777, () => {
+      console.log("Server is successfully connected to port 7777");
+    });
+  })
+
+  .catch((err) => {
+    console.log("Database cannot be connected!!");
+  });
