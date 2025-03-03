@@ -5,7 +5,7 @@ const connectDB = async () => {
   );
 };
 
-module.exports={connectDB};
+module.exports= connectDB;
 // connectDB()
 //   .then(() => {
 //     console.log("Database Connection is established!!");
