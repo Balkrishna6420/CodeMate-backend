@@ -1,11 +1,10 @@
 const mongoose = require("mongoose");
 const connectDB = async () => {
-  await mongoose.connect(
-    "mongodb+srv://bkrishnajha494:hjDJkSsv72EKExnb@balkrishna.7zf0t.mongodb.net/codeMate"
-  );
+  console.log(process.env.DB_CONNECTION_SECRET);
+  await mongoose.connect(process.env.DB_CONNECTION_SECRET);
 };
 
-module.exports= connectDB;
+module.exports = connectDB;
 // connectDB()
 //   .then(() => {
 //     console.log("Database Connection is established!!");
