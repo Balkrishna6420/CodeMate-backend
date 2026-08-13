@@ -12,10 +12,11 @@ const socket = require("socket.io");
  
  const initializeSocket = (server) => {
    const io = socket(server, {
-     cors: {
-       origin: "http://localhost:5173",
-     },
-   });
+  cors: {
+    origin: process.env.FRONTEND_URL,
+    credentials: true,
+  },
+});
  
    io.on("connection", (socket) => {
      socket.on("joinChat", ({ firstName, userId, targetUserId }) => {
