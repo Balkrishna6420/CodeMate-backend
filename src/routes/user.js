@@ -28,6 +28,7 @@ userRouter.get("/user/requests/received", userAuth, async (req, res) => {
 });
 
 // Get all accepted connections
+// Get all accepted connections
 userRouter.get("/user/connections", userAuth, async (req, res) => {
   try {
     const loggedInUser = req.user;
@@ -47,21 +48,23 @@ userRouter.get("/user/connections", userAuth, async (req, res) => {
       .populate("fromUserId", USER_SAFE_DATA)
       .populate("toUserId", USER_SAFE_DATA);
 
-    console.log(connectionRequests);
+    const data = connectionRequests
+      .filter((row) => row.fromUserId && row.toUserId)
+      .map((row) => {
+        if (
+          row.fromUserId._id.toString() ===
+          loggedInUser._id.toString()
+        ) {
+          return row.toUserId;
+        }
 
-    const data = connectionRequests.map((row) => {
-      if (
-        row.fromUserId._id.toString() ===
-        loggedInUser._id.toString()
-      ) {
-        return row.toUserId;
-      }
-
-      return row.fromUserId;
-    });
+        return row.fromUserId;
+      });
 
     res.json({ data });
   } catch (err) {
+    console.error("CONNECTIONS ERROR:", err);
+
     res.status(400).send({
       message: err.message,
     });
