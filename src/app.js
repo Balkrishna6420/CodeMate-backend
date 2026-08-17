@@ -13,7 +13,11 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: [
+      "http://localhost:5173",
+      "http://13.60.214.251",
+      "https://code-mate-frontend-nine.vercel.app",
+    ],
     credentials: true,
   }),
 );
